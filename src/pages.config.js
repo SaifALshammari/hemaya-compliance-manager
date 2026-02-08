@@ -49,12 +49,18 @@
  */
 import Dashboard from './pages/Dashboard';
 import Policies from './pages/Policies';
+import Analyses from './pages/Analyses';
+import Frameworks from './pages/Frameworks';
+import MappingReview from './pages/MappingReview';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "Dashboard": Dashboard,
     "Policies": Policies,
+    "Analyses": Analyses,
+    "Frameworks": Frameworks,
+    "MappingReview": MappingReview,
 }
 
 export const pagesConfig = {
