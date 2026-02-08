@@ -52,6 +52,9 @@ import Policies from './pages/Policies';
 import Analyses from './pages/Analyses';
 import Frameworks from './pages/Frameworks';
 import MappingReview from './pages/MappingReview';
+import GapsRisks from './pages/GapsRisks';
+import Reports from './pages/Reports';
+import AIInsights from './pages/AIInsights';
 import __Layout from './Layout.jsx';
 
 
@@ -61,6 +64,9 @@ export const PAGES = {
     "Analyses": Analyses,
     "Frameworks": Frameworks,
     "MappingReview": MappingReview,
+    "GapsRisks": GapsRisks,
+    "Reports": Reports,
+    "AIInsights": AIInsights,
 }
 
 export const pagesConfig = {
