@@ -55,6 +55,9 @@ import MappingReview from './pages/MappingReview';
 import GapsRisks from './pages/GapsRisks';
 import Reports from './pages/Reports';
 import AIInsights from './pages/AIInsights';
+import Explainability from './pages/Explainability';
+import AuditTrail from './pages/AuditTrail';
+import Simulation from './pages/Simulation';
 import __Layout from './Layout.jsx';
 
 
@@ -67,6 +70,9 @@ export const PAGES = {
     "GapsRisks": GapsRisks,
     "Reports": Reports,
     "AIInsights": AIInsights,
+    "Explainability": Explainability,
+    "AuditTrail": AuditTrail,
+    "Simulation": Simulation,
 }
 
 export const pagesConfig = {
