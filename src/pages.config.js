@@ -58,6 +58,8 @@ import AIInsights from './pages/AIInsights';
 import Explainability from './pages/Explainability';
 import AuditTrail from './pages/AuditTrail';
 import Simulation from './pages/Simulation';
+import AIAssistant from './pages/AIAssistant';
+import Settings from './pages/Settings';
 import __Layout from './Layout.jsx';
 
 
@@ -73,6 +75,8 @@ export const PAGES = {
     "Explainability": Explainability,
     "AuditTrail": AuditTrail,
     "Simulation": Simulation,
+    "AIAssistant": AIAssistant,
+    "Settings": Settings,
 }
 
 export const pagesConfig = {
