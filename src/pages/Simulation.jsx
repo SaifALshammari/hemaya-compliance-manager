@@ -25,6 +25,7 @@ import {
   RotateCcw,
   Sparkles
 } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
 import {
   BarChart,
   Bar,
@@ -59,6 +60,7 @@ export default function Simulation() {
   const [selectedControls, setSelectedControls] = useState([]);
   const [simulationRun, setSimulationRun] = useState(false);
   const [simulationResults, setSimulationResults] = useState(null);
+  const { toast } = useToast();
 
   const { data: results = [] } = useQuery({
     queryKey: ['complianceResults'],
@@ -103,37 +105,50 @@ export default function Simulation() {
     setSimulationResults(null);
   };
 
-  const runSimulation = () => {
-    // Calculate impact based on selected controls
-    const impactByFramework = {
-      'NCA ECC': 0,
-      'ISO 27001': 0,
-      'NIST 800-53': 0,
-    };
-
-    selectedControls.forEach(controlId => {
-      const control = sampleControls.find(c => c.id === controlId);
-      if (control) {
-        impactByFramework[control.framework] += control.impact;
+  const runSimulation = async () => {
+    try {
+      // Get latest analyzed policy
+      const analyzedPolicies = policies.filter(p => p.status === 'analyzed');
+      
+      if (analyzedPolicies.length === 0) {
+        toast({
+          title: 'No Analyzed Policies',
+          description: 'Please analyze a policy first before running simulations.',
+          variant: 'destructive',
+        });
+        return;
       }
-    });
 
-    // Calculate projected scores
-    const projectedScores = {};
-    Object.keys(currentScores).forEach(framework => {
-      const impact = impactByFramework[framework];
-      // Each control point adds ~1.5% to compliance score (capped at 100)
-      const newScore = Math.min(100, currentScores[framework] + (impact * 1.5));
-      projectedScores[framework] = Math.round(newScore);
-    });
+      const latestPolicy = analyzedPolicies[0];
 
-    setSimulationResults({
-      currentScores,
-      projectedScores,
-      controlsImplemented: selectedControls.length,
-      gapsResolved: Math.min(selectedControls.length, gaps.length),
-    });
-    setSimulationRun(true);
+      // Call backend simulation
+      const result = await base44.functions.invoke('run_simulation', {
+        policy_id: latestPolicy.id,
+        control_ids: selectedControls,
+      });
+
+      if (result.success) {
+        // Transform backend response to UI format
+        const projectedScores = {};
+        result.projected_results.forEach(r => {
+          projectedScores[r.framework] = r.projected_score;
+        });
+
+        setSimulationResults({
+          currentScores,
+          projectedScores,
+          controlsImplemented: result.controls_implemented,
+          gapsResolved: result.gaps_resolved,
+        });
+        setSimulationRun(true);
+      }
+    } catch (error) {
+      toast({
+        title: 'Simulation Failed',
+        description: error.message || 'Failed to run simulation',
+        variant: 'destructive',
+      });
+    }
   };
 
   const resetSimulation = () => {

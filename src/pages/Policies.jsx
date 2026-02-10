@@ -192,34 +192,40 @@ export default function Policies() {
   };
 
   const handleRunAnalysis = async (policy) => {
-    updatePolicyMutation.mutate({
-      id: policy.id,
-      data: { status: 'processing' },
-    });
-
-    await AuditLog.create({
-      actor: 'Current User',
-      action: 'analysis_start',
-      target_type: 'analysis',
-      target_id: policy.id,
-      details: `Started analysis for: ${policy.file_name}`,
-    });
-
-    toast({
-      title: 'Analysis Started',
-      description: `Analysis for ${policy.file_name} has been queued.`,
-    });
-
-    // Simulate analysis completion after delay
-    setTimeout(() => {
+    try {
       updatePolicyMutation.mutate({
         id: policy.id,
-        data: { 
-          status: 'analyzed',
-          last_analyzed_at: new Date().toISOString(),
-        },
+        data: { status: 'processing' },
       });
-    }, 5000);
+
+      toast({
+        title: 'Analysis Started',
+        description: `Analyzing ${policy.file_name} across all frameworks...`,
+      });
+
+      // Call backend function
+      const result = await base44.functions.invoke('analyze_policy', {
+        policy_id: policy.id,
+        frameworks: ['NCA ECC', 'ISO 27001', 'NIST 800-53'],
+      });
+
+      if (result.success) {
+        queryClient.invalidateQueries(['policies']);
+        queryClient.invalidateQueries(['complianceResults']);
+        queryClient.invalidateQueries(['gaps']);
+        
+        toast({
+          title: 'Analysis Complete',
+          description: `Created ${result.mappings_created} mappings and identified ${result.gaps_created} gaps.`,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Analysis Failed',
+        description: error.message || 'Failed to analyze policy',
+        variant: 'destructive',
+      });
+    }
   };
 
   const handleViewPreview = (policy) => {

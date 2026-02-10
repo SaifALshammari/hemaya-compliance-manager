@@ -26,11 +26,34 @@ export default function Layout({ children }) {
 
   const handleConfirmReport = async () => {
     setReportGenerating(true);
-    // Simulate report generation
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    try {
+      // Get latest analyzed policy
+      const { data: policies } = await base44.entities.Policy.filter({ status: 'analyzed' });
+      
+      if (policies && policies.length > 0) {
+        const latestPolicy = policies[0];
+        
+        const result = await base44.functions.invoke('generate_report', {
+          policy_id: latestPolicy.id,
+          report_type: reportConfig.type,
+          format: reportConfig.format,
+          frameworks_included: reportConfig.frameworks,
+        });
+
+        if (result.success) {
+          // Download the report
+          if (result.report?.download_url) {
+            window.open(result.report.download_url, '_blank');
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Report generation failed:', error);
+    }
+    
     setReportGenerating(false);
     setShowReportDialog(false);
-    // TODO: Actually generate report via backend
   };
 
   const toggleFramework = (framework) => {

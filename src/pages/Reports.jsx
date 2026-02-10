@@ -130,16 +130,29 @@ export default function Reports() {
 
     setGenerating(true);
     
-    // Simulate report generation
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    createReportMutation.mutate({
-      ...reportConfig,
-      status: 'Completed',
-      generated_at: new Date().toISOString(),
-      // TODO: Replace with actual download URL from backend
-      download_url: '#',
-    });
+    try {
+      const result = await base44.functions.invoke('generate_report', {
+        policy_id: reportConfig.policy_id,
+        report_type: reportConfig.report_type,
+        format: reportConfig.format,
+        frameworks_included: reportConfig.frameworks_included,
+      });
+
+      if (result.success) {
+        queryClient.invalidateQueries(['reports']);
+        toast({
+          title: 'Report Generated',
+          description: 'Your report is ready for download.',
+        });
+        setShowGenerateDialog(false);
+      }
+    } catch (error) {
+      toast({
+        title: 'Generation Failed',
+        description: error.message || 'Failed to generate report',
+        variant: 'destructive',
+      });
+    }
     
     setGenerating(false);
   };

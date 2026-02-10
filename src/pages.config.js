@@ -47,36 +47,36 @@
  *
  * The mainPage value must match a key in the PAGES object exactly.
  */
-import Dashboard from './pages/Dashboard';
-import Policies from './pages/Policies';
-import Analyses from './pages/Analyses';
-import Frameworks from './pages/Frameworks';
-import MappingReview from './pages/MappingReview';
-import GapsRisks from './pages/GapsRisks';
-import Reports from './pages/Reports';
-import AIInsights from './pages/AIInsights';
-import Explainability from './pages/Explainability';
-import AuditTrail from './pages/AuditTrail';
-import Simulation from './pages/Simulation';
 import AIAssistant from './pages/AIAssistant';
+import AIInsights from './pages/AIInsights';
+import Analyses from './pages/Analyses';
+import AuditTrail from './pages/AuditTrail';
+import Dashboard from './pages/Dashboard';
+import Explainability from './pages/Explainability';
+import Frameworks from './pages/Frameworks';
+import GapsRisks from './pages/GapsRisks';
+import MappingReview from './pages/MappingReview';
+import Policies from './pages/Policies';
+import Reports from './pages/Reports';
 import Settings from './pages/Settings';
+import Simulation from './pages/Simulation';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Dashboard": Dashboard,
-    "Policies": Policies,
-    "Analyses": Analyses,
-    "Frameworks": Frameworks,
-    "MappingReview": MappingReview,
-    "GapsRisks": GapsRisks,
-    "Reports": Reports,
-    "AIInsights": AIInsights,
-    "Explainability": Explainability,
-    "AuditTrail": AuditTrail,
-    "Simulation": Simulation,
     "AIAssistant": AIAssistant,
+    "AIInsights": AIInsights,
+    "Analyses": Analyses,
+    "AuditTrail": AuditTrail,
+    "Dashboard": Dashboard,
+    "Explainability": Explainability,
+    "Frameworks": Frameworks,
+    "GapsRisks": GapsRisks,
+    "MappingReview": MappingReview,
+    "Policies": Policies,
+    "Reports": Reports,
     "Settings": Settings,
+    "Simulation": Simulation,
 }
 
 export const pagesConfig = {

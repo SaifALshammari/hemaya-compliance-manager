@@ -183,19 +183,30 @@ export default function AIAssistant() {
     setInputValue('');
     setIsTyping(true);
 
-    // Simulate AI thinking time
-    await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+    try {
+      // Call backend function
+      const result = await base44.functions.invoke('chat_assistant', {
+        message: userMessage.content,
+      });
 
-    const response = generateResponse(userMessage.content, { policies, results, gaps });
+      const assistantMessage = {
+        id: Date.now() + 1,
+        role: 'assistant',
+        content: result.response || 'Sorry, I encountered an error. Please try again.',
+        type: 'info'
+      };
 
-    const assistantMessage = {
-      id: Date.now() + 1,
-      role: 'assistant',
-      content: response.text,
-      type: response.type
-    };
+      setMessages(prev => [...prev, assistantMessage]);
+    } catch (error) {
+      const errorMessage = {
+        id: Date.now() + 1,
+        role: 'assistant',
+        content: 'I apologize, but I encountered an error processing your request. Please try again.',
+        type: 'warning'
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    }
 
-    setMessages(prev => [...prev, assistantMessage]);
     setIsTyping(false);
   };
 
