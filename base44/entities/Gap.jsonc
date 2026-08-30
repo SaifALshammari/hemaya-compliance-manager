@@ -1,0 +1,70 @@
+{
+  "name": "Gap",
+  "type": "object",
+  "properties": {
+    "policy_id": {
+      "type": "string",
+      "description": "Reference to the related policy"
+    },
+    "framework": {
+      "type": "string",
+      "enum": [
+        "NCA ECC",
+        "ISO 27001",
+        "NIST 800-53"
+      ],
+      "description": "Framework where gap was identified"
+    },
+    "control_id": {
+      "type": "string",
+      "description": "Control identifier (e.g., A.5.1.1)"
+    },
+    "control_name": {
+      "type": "string",
+      "description": "Name of the control"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "description": "Severity level of the gap"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Open",
+        "In Progress",
+        "Resolved",
+        "Deferred"
+      ],
+      "default": "Open",
+      "description": "Current status of gap remediation"
+    },
+    "owner": {
+      "type": "string",
+      "description": "Person responsible for addressing this gap"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Target date for resolution"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the gap"
+    },
+    "remediation_notes": {
+      "type": "string",
+      "description": "Notes on remediation progress"
+    }
+  },
+  "required": [
+    "policy_id",
+    "control_id",
+    "severity"
+  ]
+}

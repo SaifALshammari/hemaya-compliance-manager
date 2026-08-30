@@ -1,0 +1,59 @@
+{
+  "name": "AuditLog",
+  "type": "object",
+  "properties": {
+    "actor": {
+      "type": "string",
+      "description": "User who performed the action"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "policy_upload",
+        "policy_delete",
+        "analysis_start",
+        "analysis_complete",
+        "mapping_review",
+        "report_generate",
+        "gap_update",
+        "settings_change",
+        "user_login",
+        "user_logout"
+      ],
+      "description": "Type of action performed"
+    },
+    "target_type": {
+      "type": "string",
+      "enum": [
+        "policy",
+        "analysis",
+        "mapping",
+        "report",
+        "gap",
+        "settings",
+        "user"
+      ],
+      "description": "Type of entity affected"
+    },
+    "target_id": {
+      "type": "string",
+      "description": "ID of the affected entity"
+    },
+    "details": {
+      "type": "string",
+      "description": "Additional details about the action"
+    },
+    "ip_address": {
+      "type": "string",
+      "description": "IP address of the actor"
+    },
+    "user_agent": {
+      "type": "string",
+      "description": "Browser/client information"
+    }
+  },
+  "required": [
+    "actor",
+    "action"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "name": "Policy",
+  "type": "object",
+  "properties": {
+    "file_name": {
+      "type": "string",
+      "description": "Name of the uploaded policy file"
+    },
+    "file_type": {
+      "type": "string",
+      "enum": [
+        "pdf",
+        "docx",
+        "txt"
+      ],
+      "description": "Type of the policy document"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "URL to the uploaded file"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "uploaded",
+        "processing",
+        "analyzed",
+        "failed",
+        "archived"
+      ],
+      "default": "uploaded",
+      "description": "Current lifecycle status of the policy"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the policy"
+    },
+    "version": {
+      "type": "string",
+      "description": "Policy version number"
+    },
+    "department": {
+      "type": "string",
+      "description": "Department responsible for this policy"
+    },
+    "last_analyzed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last analysis"
+    },
+    "content_preview": {
+      "type": "string",
+      "description": "Text preview/snippet of the policy content"
+    }
+  },
+  "required": [
+    "file_name"
+  ]
+}

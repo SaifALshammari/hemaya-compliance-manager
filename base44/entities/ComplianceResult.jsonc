@@ -1,0 +1,57 @@
+{
+  "name": "ComplianceResult",
+  "type": "object",
+  "properties": {
+    "policy_id": {
+      "type": "string",
+      "description": "Reference to the analyzed policy"
+    },
+    "framework": {
+      "type": "string",
+      "enum": [
+        "NCA ECC",
+        "ISO 27001",
+        "NIST 800-53"
+      ],
+      "description": "Compliance framework used for analysis"
+    },
+    "compliance_score": {
+      "type": "number",
+      "description": "Overall compliance score (0-100)"
+    },
+    "controls_covered": {
+      "type": "number",
+      "description": "Number of controls fully covered"
+    },
+    "controls_missing": {
+      "type": "number",
+      "description": "Number of missing controls"
+    },
+    "controls_partial": {
+      "type": "number",
+      "description": "Number of partially covered controls"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Compliant",
+        "Partially Compliant",
+        "Not Compliant"
+      ],
+      "description": "Overall compliance status"
+    },
+    "analyzed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when analysis was completed"
+    },
+    "analysis_duration": {
+      "type": "number",
+      "description": "Duration of analysis in seconds"
+    }
+  },
+  "required": [
+    "policy_id",
+    "framework"
+  ]
+}

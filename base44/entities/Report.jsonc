@@ -1,0 +1,59 @@
+{
+  "name": "Report",
+  "type": "object",
+  "properties": {
+    "policy_id": {
+      "type": "string",
+      "description": "Reference to the policy"
+    },
+    "report_type": {
+      "type": "string",
+      "enum": [
+        "Executive Summary",
+        "Detailed Analysis",
+        "Gap Report",
+        "Compliance Certificate"
+      ],
+      "description": "Type of report generated"
+    },
+    "format": {
+      "type": "string",
+      "enum": [
+        "PDF",
+        "Excel",
+        "CSV"
+      ],
+      "description": "File format of the report"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Generating",
+        "Completed",
+        "Failed"
+      ],
+      "default": "Generating",
+      "description": "Report generation status"
+    },
+    "download_url": {
+      "type": "string",
+      "description": "URL to download the report"
+    },
+    "frameworks_included": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Frameworks included in this report"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the report was generated"
+    }
+  },
+  "required": [
+    "policy_id",
+    "report_type"
+  ]
+}

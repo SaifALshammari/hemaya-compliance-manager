@@ -1,0 +1,71 @@
+{
+  "name": "AIInsight",
+  "type": "object",
+  "properties": {
+    "policy_id": {
+      "type": "string",
+      "description": "Reference to the policy"
+    },
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "gap_priority",
+        "policy_improvement",
+        "control_recommendation",
+        "risk_alert",
+        "trend_analysis"
+      ],
+      "description": "Type of AI insight"
+    },
+    "title": {
+      "type": "string",
+      "description": "Brief title of the insight"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed insight description"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "description": "Priority level of this insight"
+    },
+    "framework": {
+      "type": "string",
+      "description": "Related framework if applicable"
+    },
+    "control_reference": {
+      "type": "string",
+      "description": "Related control ID"
+    },
+    "evidence_snippet": {
+      "type": "string",
+      "description": "Policy snippet supporting this insight"
+    },
+    "confidence": {
+      "type": "number",
+      "description": "AI confidence in this insight (0-1)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "New",
+        "Viewed",
+        "Actioned",
+        "Dismissed"
+      ],
+      "default": "New",
+      "description": "Status of the insight"
+    }
+  },
+  "required": [
+    "insight_type",
+    "title",
+    "description"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "name": "ControlLibrary",
+  "type": "object",
+  "properties": {
+    "framework": {
+      "type": "string",
+      "enum": [
+        "NCA ECC",
+        "ISO 27001",
+        "NIST 800-53"
+      ],
+      "description": "Compliance framework"
+    },
+    "control_code": {
+      "type": "string",
+      "description": "Control identifier (e.g., A.5.1.1, AC-2, 2-1-1)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Control title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Full control description"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Keywords for matching"
+    },
+    "category": {
+      "type": "string",
+      "description": "Control category/domain"
+    },
+    "severity_if_missing": {
+      "type": "string",
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "default": "Medium",
+      "description": "Default severity if this control is missing"
+    }
+  },
+  "required": [
+    "framework",
+    "control_code",
+    "title"
+  ]
+}
